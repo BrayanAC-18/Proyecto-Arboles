@@ -14,15 +14,23 @@ display = pygame.display.set_mode((ventana["ancho"],ventana["alto"]))
 pygame.display.set_caption("Juego del Carrito")
 reloj = pygame.time.Clock()
 
-ImagenJugador = pygame.image.load("assets/images/car/car_1.png")
-ImagenJugador = pygame.transform.scale(ImagenJugador,
-                                       (ImagenJugador.get_width()*carrito["escala"],(ImagenJugador.get_height()*carrito["escala"])))
-jugador = Carrito(30,300,ImagenJugador) #crear objeto tipo carrito con posicion 30,300 
+def escalarImagen(imagen, scale=carrito["escala"]):
+    return pygame.transform.scale(
+        imagen, 
+        (int(imagen.get_width()*scale), int(imagen.get_height()*scale))
+    )
+
+imagenes = [
+    escalarImagen(pygame.image.load(carrito["colorDefault"])),
+    escalarImagen(pygame.image.load(carrito["colorSalto"]))
+]
+
+jugador = Carrito(30,300,imagenes) #crear objeto tipo carrito con posicion 30,300 
 
 #variables de mmovimiento
 moverArriba = False
 moverAbajo = False
-saltar = False
+salto = False
 
 run=True
 
@@ -34,13 +42,14 @@ while run:
     #calcula movimiento del jugador
     delta_y = 0
     
-    if moverArriba == True:
+    if moverArriba:
         delta_y = -carrito["velocidad"]
         
-    if moverAbajo == True:
+    if moverAbajo:
         delta_y = carrito["velocidad"]
+        
     
-    jugador.movimiento(delta_y)
+    jugador.movimiento(delta_y,salto)
         
     jugador.dibujar(display) #dibujar en la interfaz deseada
     
@@ -58,7 +67,7 @@ while run:
                 moverAbajo = True
             
             if event.key == pygame.K_SPACE:
-                saltar = True
+                salto = True
         #cuando se suelta tecla
         if event.type == pygame.KEYUP:
             
@@ -69,7 +78,7 @@ while run:
                 moverAbajo = False
             
             if event.key == pygame.K_SPACE:
-                saltar = False 
+                salto = False 
                 
     pygame.display.update() #actualiza los cambios hechos 
     
