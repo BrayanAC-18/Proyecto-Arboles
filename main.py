@@ -1,48 +1,42 @@
 import json
 from models.carrito import Carrito
 from models.carretera import Carretera
-import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
-
-# Suprimir advertencias de libpng
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning, module="pygame")
 
 pygame.init() #inicializa pygame
 
-with open("config/ventana.json", "r") as file: 
-    ventana = json.load(file)
+pantalla = pygame.display.set_mode((600, 400))
+pygame.display.set_caption("Configurar antes de jugar")
+fuente = pygame.font.Font(None, 32)
 
-with open("config/carrito.json", "r") as file: 
-    carrito = json.load(file)
 
-with open("config/carretera.json", "r") as file: 
-    carretera = json.load(file)
+with open("config/config.json", "r") as file: 
+    config = json.load(file)
 
-display = pygame.display.set_mode((ventana["ancho"],ventana["alto"]))
+
+
+display = pygame.display.set_mode((config["ventana"]["ancho"],config["ventana"]["alto"]))
 pygame.display.set_caption("Juego del Carrito")
 reloj = pygame.time.Clock()
 
-def escalarImagen(imagen, scale=carrito["escala"]):
+def escalarImagen(imagen, scale=config["carrito"]["escala"]):
     return pygame.transform.scale(
         imagen, 
         (int(imagen.get_width()*scale), int(imagen.get_height()*scale))
     )
 
 imagenes = [
-    escalarImagen(pygame.image.load(carrito["colorDefault"])),
-    escalarImagen(pygame.image.load(carrito["colorSalto"]))
+    escalarImagen(pygame.image.load(config["carrito"]["colorDefault"])),
+    escalarImagen(pygame.image.load(config["carrito"]["colorSalto"]))
 ]
 
-# Crear carretera (ajusta la ruta del sprite según tu archivo)
-carretera = Carretera(carretera["sprite"], ventana["alto"], ventana["ancho"])
+# Crear carretera
+carretera = Carretera(config["carretera"]["sprite"], config["ventana"]["alto"], config["ventana"]["ancho"])
 
 limite_sup, limite_inf = carretera.obtener_limites() #obetener limites para limitar el movimiento del carro
 posicion_inicial_y = (limite_sup + limite_inf) // 2
 
 jugador = Carrito(30, posicion_inicial_y, imagenes)
-
 
 #variables de mmovimiento
 moverArriba = False
@@ -53,25 +47,24 @@ run=True
 
 while run:
     #controlaar frame rate
-    reloj.tick(ventana["fps"])
+    dt_ms = reloj.tick(config["ventana"]["fps"])
     
-    display.fill(ventana["fondo"])
+    display.fill(config["ventana"]["fondo"])
     
      # Actualizar carretera
-    carretera.actualizar()
+    carretera.actualizar(dt_ms)
     carretera.dibujar(display)
-    
+
     
     
     #calcula movimiento del jugador
     delta_y = 0
     
     if moverArriba:
-        delta_y = -carrito["velocidad"]
+        delta_y = -config["carrito"]["avance_m"]
         
     if moverAbajo:
-        delta_y = carrito["velocidad"]
-        
+        delta_y = config["carrito"]["avance_m"]
         
     # Obtener límites actuales de la carretera
     limite_superior, limite_inferior = carretera.obtener_limites()
@@ -87,6 +80,7 @@ while run:
     
     # Aplicar movimiento limitado
     delta_y_limitado = nueva_y - jugador.rect.y
+    
     jugador.movimiento(delta_y_limitado, salto)
     
     # Dibujar jugador

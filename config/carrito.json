@@ -1,9 +1,0 @@
-{
-    "ancho" : 40,
-    "alto" : 20,
-    "colorDefault" : "assets/images/car/car_1.png",
-    "colorSalto" : "assets/images/car/car_2.png",
-    "velocidad" : 5,
-    "escala" : 2,
-    "salto" : 7
-}

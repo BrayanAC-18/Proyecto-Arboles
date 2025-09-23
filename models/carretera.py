@@ -5,16 +5,11 @@ from models.carrito import Carrito
 pygame.init()
 
 # Cargar configuraciones
-with open("config/ventana.json", "r") as file:
-    ventana = json.load(file)
+with open("config/config.json", "r") as file:
+    config = json.load(file)
 
-with open("config/carrito.json", "r") as file:
-    carrito = json.load(file)
-    
-with open("config/carretera.json", "r") as file:
-    carretera = json.load(file)
 
-display = pygame.display.set_mode((ventana["ancho"], ventana["alto"]))
+display = pygame.display.set_mode((config["ventana"]["ancho"], config["ventana"]["alto"]))
 pygame.display.set_caption("Juego del Carrito")
 reloj = pygame.time.Clock()
 
@@ -23,18 +18,17 @@ class Carretera:
         self.sprite = pygame.image.load(sprite)
         self.alto_ventana = alto_ventana
         self.ancho_ventana = ancho_ventana
-        self.velocidad = carretera["velocidad"]
-        self.longitud = carretera["longitud"]
+        self.longitud = config["carretera"]["longitud"]
         self.x = 0
         self.en_movimiento = True
         self.posicion_meta = self.longitud
         self.meta_alcanzada = False
-        self.pixels_por_metro = 50
+        self.pixels_por_metro = config["carretera"]["pixeles_metro"]
         
     # Escalar la carretera a la longitud especificada
         self.sprite_escalado = pygame.transform.scale(
         self.sprite, 
-        (self.longitud, carretera["altura"])
+        (self.longitud, config["carretera"]["altura"])
     )
         
         self.ancho_sprite = self.sprite_escalado.get_width()
@@ -54,17 +48,28 @@ class Carretera:
         # Calcular cuántas repeticiones necesitamos para cubrir la pantalla
         self.repeticiones_necesarias = (ancho_ventana // self.ancho_sprite) + 3
         
-    def actualizar(self):
+    def actualizar(self, dt_ms):
+        desplazamiento = 0  # valor por defecto
+
         if not self.meta_alcanzada:
-            # Mover carretera
-            self.x -= self.velocidad
+            # calcular velocidad del carro en m/s
+            avance_m = config["carrito"]["avance_m"]
+            avance_ms = config["carrito"]["avance_ms"]
+            velocidad_m_s = avance_m / (avance_ms / 1000.0)  # metros por segundo
+
+            # convertir a píxeles/s
+            velocidad_px_s = velocidad_m_s * self.pixels_por_metro
+
+            # desplazar carretera en píxeles según el dt
+            desplazamiento = velocidad_px_s * (dt_ms / 1000.0)
+            self.x -= desplazamiento
+
+            # reiniciar ciclo de repetición
             if self.x <= -self.ancho_sprite:
                 self.x = 0
-            
-            # Acercar la meta
-            self.posicion_meta -= self.velocidad
-            
-            # Verificar si se alcanzó la meta
+
+            # actualizar la posición de la meta
+            self.posicion_meta -= desplazamiento
             if self.posicion_meta <= 0:
                 self.meta_alcanzada = True
     
