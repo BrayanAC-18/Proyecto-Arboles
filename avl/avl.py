@@ -1,7 +1,7 @@
 from .node import Node
 
-class Avl:
-    def _init_(self):
+class AVL:
+    def __init__(self):
         self.root = None
     
     def insert(self, obstacle):
@@ -14,7 +14,6 @@ class Avl:
                 self.root = new_node
             else:
                 self._insert(self.root, new_node)
-                self._balance(new_node)
             
     def _insert(self, current_node, new_node):
         if new_node.obstacle < current_node.obstacle:
@@ -39,7 +38,7 @@ class Avl:
             return self._search(self.root, obstacle)
 
     def _search(self, current_node, obstacle):
-        if current_node is Node or current_node.obstacle == obstacle:
+        if current_node is None or current_node.obstacle == obstacle:
             return current_node
         elif obstacle < current_node.obstacle and current_node.left is not None:
             return self._search(current_node.left, obstacle)
@@ -49,22 +48,27 @@ class Avl:
     
     #  balance node by obstacle
     def _balance(self, node):
-        while node is not None:
-            self._update_height(node)
-            balance = self._get_balance(node)
+        balance = self._get_balance(node)
 
-            # Caso LR o LL
-            if balance > 1:
-                if self._get_balance(node.left) < 0:
-                    self._rotate_left(node.left)  # LR 
-                self._rotate_right(node) # LL
+        # LL
+        if balance > 1 and self._get_balance(node.left) >= 0:
+            return self._rotate_right(node)
 
-            # Caso RL o RR
-            elif balance < -1:
-                if self._get_balance(node.right) > 0:
-                    self._rotate_right(node.right) # RL
-                self._rotate_left(node) # RR
-            node = node.parent
+        # LR
+        if balance > 1 and self._get_balance(node.left) < 0:
+            node.left = self._rotate_left(node.left)
+            return self._rotate_right(node)
+
+        # RR
+        if balance < -1 and self._get_balance(node.right) <= 0:
+            return self._rotate_left(node)
+
+        # RL
+        if balance < -1 and self._get_balance(node.right) > 0:
+            node.right = self._rotate_right(node.right)
+            return self._rotate_left(node)
+
+        return node
     
     # Update the height of a node
     def _update_height(self, node):
@@ -101,6 +105,9 @@ class Avl:
         # Update heights
         self._update_height(y)
         self._update_height(x)
+
+        return x
+
     
     # Perform a left rotation
     def _rotate_left(self, x):
@@ -126,6 +133,9 @@ class Avl:
         # Update heights
         self._update_height(x)
         self._update_height(y)
+
+
+        return y
     
 
     # Find the inorder predecessor (the maximum in the left subtree)
@@ -155,11 +165,6 @@ class Avl:
         if node_to_delete is not None:
             parent = node_to_delete.parent
             self._delete(node_to_delete)
-            # balancear hacia arriba
-            if parent:
-                self._balance(parent)
-            elif self.root:  # Si el nodo eliminado era la raíz
-                self._balance(self.root)
 
     def _delete(self, node_to_delete):
         parent = node_to_delete.parent
@@ -194,3 +199,33 @@ class Avl:
         elif self.root:   # Si eliminaste la raíz
             self._update_height(self.root)
             self._balance(self.root)
+
+    # Inorder traversal (left → root → right)
+    def inorder(self, node=None):
+        if node is None:
+            node = self.root
+        if node.left:
+            self.inorder(node.left)
+        print(node.obstacle, end=" ")
+        if node.right:
+            self.inorder(node.right)
+    
+     # Method to print the tree in console
+    def print_tree(self, node=None, prefix="", is_left=True):
+        if node is not None:
+            # Print right subtree
+            if node.right:
+                new_prefix = prefix + ("│   " if is_left else "    ")
+                self.print_tree(node.right, new_prefix, False)
+
+            # Print current node
+            connector = "└── " if is_left else "┌── "
+            print(prefix + connector + str(node.obstacle))
+
+            # Print left subtree
+            if node.left:
+                new_prefix = prefix + ("    " if is_left else "│   ")
+                self.print_tree(node.left, new_prefix, True)
+
+
+
