@@ -11,9 +11,10 @@
     "colorDefault": "assets/images/car/car_1.png",
     "colorSalto": "assets/images/car/car_2.png",
     "escala": 2,
-    "salto": 7,
+    "salto": 1.2,
     "avance_ms": 1000,
-    "avance_m": 10
+    "avance_m": 10,
+    "gravedad": 0.8
   },
   "ventana": {
     "ancho": 400,

@@ -1,14 +1,11 @@
 import json
 from models.carrito import Carrito
 from models.carretera import Carretera
+
 import pygame
 
+
 pygame.init() #inicializa pygame
-
-pantalla = pygame.display.set_mode((600, 400))
-pygame.display.set_caption("Configurar antes de jugar")
-fuente = pygame.font.Font(None, 32)
-
 
 with open("config/config.json", "r") as file: 
     config = json.load(file)
@@ -45,7 +42,7 @@ salto = False
 
 run=True
 
-while run:
+while run:  
     #controlaar frame rate
     dt_ms = reloj.tick(config["ventana"]["fps"])
     
