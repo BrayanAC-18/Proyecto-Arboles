@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
     valores = [50, 30, 70, 20, 40, 60, 80,
                10, 25, 35, 45, 55, 65, 75, 85,
-               5, 15, 33, 43, 90]
+               5, 15, 33, 43, 90, 1]
 
     for v in valores:
         avl.insert(v)
@@ -15,6 +15,20 @@ if __name__ == "__main__":
     print("\n")
 
     print("Initial inorder traversal (sorted order):")
+    avl.inorder()
+    print("\n")
+
+     # Test deletions
+    print("insert a leaf (91):")
+    avl.insert(91)
+    avl.print_tree(avl.root)
+    avl.inorder()
+    print("\n")
+
+     # Test deletions
+    print("insert a leaf (15):")
+    avl.insert(15)
+    avl.print_tree(avl.root)
     avl.inorder()
     print("\n")
 
