@@ -35,7 +35,7 @@ class AVL:
         # 🔹 2. Balancear el nodo actual
         return self._balance(current_node)
         
-    # Search for a obstacle in the AVL
+    # Buscar un obstáculo en el AVL
     def search(self, obstacle):
         if self.root is None:
             print("The tree is empty.")
@@ -51,85 +51,85 @@ class AVL:
         else:
             return self._search(current_node.right, obstacle)
     
-    # Balance node by obstacle
+    # Balancear un nodo según el obstáculo
     def _balance(self, node):
         balance = self._get_balance(node)
 
-        # LL
+        # Caso LL
         if balance > 1 and self._get_balance(node.left) >= 0:
             return self._rotate_right(node)
 
-        # LR
+        # Caso LR
         if balance > 1 and self._get_balance(node.left) < 0:
             node.left = self._rotate_left(node.left)
             return self._rotate_right(node)
 
-        # RR
+        # Caso RR
         if balance < -1 and self._get_balance(node.right) <= 0:
             return self._rotate_left(node)
 
-        # RL
+        # Caso RL
         if balance < -1 and self._get_balance(node.right) > 0:
             node.right = self._rotate_right(node.right)
             return self._rotate_left(node)
 
         return node
     
-    # Update the height of a node
+    # Actualizar la altura de un nodo
     def _update_height(self, node):
         left_height = node.left.height if node.left else 0
         right_height = node.right.height if node.right else 0
         node.height = 1 + max(left_height, right_height)
     
-    # Get the balance factor of a node
+    # Obtener el factor de balance de un nodo
     def _get_balance(self, node):
         left_height = node.left.height if node.left else 0
         right_height = node.right.height if node.right else 0
         return left_height - right_height
     
-    # Perform a right rotation
+    # Realizar una rotación a la derecha
     def _rotate_right(self, y):
         x = y.left
         T2 = x.right
 
-        # Perform rotation
+        # Realizar la rotación
         x.right = y
         y.left = T2
 
-        # Update parents
+        # Actualizar padres
         if T2 is not None:
             T2.parent = y
         x.parent = y.parent
         y.parent = x
 
-        # Update heights
+        # Actualizar alturas
         self._update_height(y)
         self._update_height(x)
 
         return x
 
-    # Perform a left rotation
+    # Realizar una rotación a la izquierda
     def _rotate_left(self, x):
         y = x.right
         T2 = y.left
 
-        # Perform rotation
+        # Realizar la rotación
         y.left = x
         x.right = T2
 
-        # Update parents
+        # Actualizar padres
         if T2 is not None:
             T2.parent = x
         y.parent = x.parent
         x.parent = y
 
-        # Update heights
+        # Actualizar alturas
         self._update_height(x)
         self._update_height(y)
 
         return y
 
-    # Find the inorder predecessor (the maximum in the left subtree)
+    # Encontrar el predecesor en inorden (el máximo en el subárbol izquierdo)
     def _getPredecessor(self, node):
         if node.left is not None:
             current = node.left
@@ -138,7 +138,7 @@ class AVL:
             return current
         return None
 
-    # Delete a node by obstacle
+    # Eliminar un nodo por obstáculo
     def delete(self, obstacle):
         node_to_delete = self.search(obstacle)
         if node_to_delete is not None:
@@ -148,15 +148,15 @@ class AVL:
         if node is None:
             return node
 
-        # Step 1: Perform standard BST delete
+        # Paso 1: realizar eliminación estándar en BST
         if obstacle < node.obstacle:
             node.left = self._delete(node.left, obstacle)
         elif obstacle > node.obstacle:
             node.right = self._delete(node.right, obstacle)
         else:
-            # Node to be deleted found
+            # Nodo a eliminar encontrado
             
-            # Case 1: Node with only one child or no child
+            # Caso 1: Nodo con solo un hijo o sin hijos
             if node.left is None:
                 temp = node.right
                 if temp:
@@ -170,49 +170,49 @@ class AVL:
                 node = None
                 return temp
             
-            # Case 2: Node with two children
-            # Get the inorder predecessor (largest in left subtree)
+            # Caso 2: Nodo con dos hijos
+            # Obtener el predecesor en inorden (máximo en subárbol izquierdo)
             temp = self._getPredecessor(node)
             
-            # Copy the predecessor's obstacle to this node
+            # Copiar el obstáculo del predecesor en este nodo
             node.obstacle = temp.obstacle
             
-            # Delete the inorder predecessor
+            # Eliminar el predecesor en inorden
             node.left = self._delete(node.left, temp.obstacle)
 
-        # If the tree had only one node then return
+        # Si el árbol solo tenía un nodo, retornar
         if node is None:
             return node
 
-        # Step 2: Update height of current node
+        # Paso 2: Actualizar altura del nodo actual
         self._update_height(node)
 
-        # Step 3: Get the balance factor
+        # Paso 3: Obtener el factor de balance
         balance = self._get_balance(node)
 
-        # Step 4: Balance the tree if needed
+        # Paso 4: Balancear el árbol si es necesario
         
-        # Left Left Case
+        # Caso Left Left
         if balance > 1 and self._get_balance(node.left) >= 0:
             return self._rotate_right(node)
 
-        # Left Right Case
+        # Caso Left Right
         if balance > 1 and self._get_balance(node.left) < 0:
             node.left = self._rotate_left(node.left)
             return self._rotate_right(node)
 
-        # Right Right Case
+        # Caso Right Right
         if balance < -1 and self._get_balance(node.right) <= 0:
             return self._rotate_left(node)
 
-        # Right Left Case
+        # Caso Right Left
         if balance < -1 and self._get_balance(node.right) > 0:
             node.right = self._rotate_right(node.right)
             return self._rotate_left(node)
 
         return node
 
-    # Inorder traversal (left → root → right)
+    # Recorrido inorden (izquierda → raíz → derecha)
     def inorder(self, node=None):
         if node is None:
             node = self.root
@@ -224,21 +224,21 @@ class AVL:
             result.extend(self.inorder(node.right))
         return result
     
-    # Method to print the tree in console
+    # Método para imprimir el árbol en consola
     def print_tree(self, node=None, prefix="", is_left=True):
         if node is None:
             node = self.root
         if node is not None:
-            # Print right subtree
+            # Imprimir subárbol derecho
             if node.right:
                 new_prefix = prefix + ("│   " if is_left else "    ")
                 self.print_tree(node.right, new_prefix, False)
 
-            # Print current node
+            # Imprimir nodo actual
             connector = "└── " if is_left else "┌── "
             print(prefix + connector + str(node.obstacle))
 
-            # Print left subtree
+            # Imprimir subárbol izquierdo
             if node.left:
                 new_prefix = prefix + ("    " if is_left else "│   ")
                 self.print_tree(node.left, new_prefix, True)
