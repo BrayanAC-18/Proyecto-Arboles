@@ -7,6 +7,12 @@ class Carrito():
         self.rect.center=(x,y)
         self.imagenes = imagenes
         self.imagen_actual = imagenes[0]
+        self. energia = config["carrito"]["energia"]
+        self.energia_actual = self.energia
+        self.barra_energia_longitud = 400 #pixeles de largo
+        self. healt_ratio = self.energia / self.barra_energia_longitud
+        self.dañado = False
+        
         
         # Variables de salto simplificadas
         self.esta_saltando = False
@@ -42,3 +48,10 @@ class Carrito():
                 self.esta_saltando = False
                 self.velocidad_salto = 0
                 self.imagen_actual = self.imagenes[0]
+    
+    def getDamage(self, cantidad):
+        if self.energia_actual > 0:
+            self.energia_actual-=cantidad
+        if self.energia_actual <= 0:
+            self.energia_actual = 0
+            self.dañado = True

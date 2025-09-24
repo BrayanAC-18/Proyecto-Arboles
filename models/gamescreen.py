@@ -68,6 +68,9 @@ class GameScreen(Screen):
                             ("carrito", "avance_ms")
                         ]
                         clave_principal, subclave = claves[self.active_input]
+                        if subclave == "longitud" and float(self.input_texts[self.active_input]) > 1000:
+                            print("Longitud de carretera maxima: 1000m 🙈")
+                            
                         self.config[clave_principal][subclave] = float(self.input_texts[self.active_input])
 
                         # Guardar en archivo
@@ -78,8 +81,9 @@ class GameScreen(Screen):
                         with open("config/config.json", "r") as f:
                             self.config = json.load(f)
                             self.game.config = self.config
-                        # REINICIAR la pantalla con la nueva configuración
-                        self.game.set_screen(GameScreen(self.game.display, self.config, self.game))
+                        # Cambiar la pantalla, solo si pygame sigue inicializado
+                        if pygame.get_init() and self.game.display:
+                            self.game.set_screen(GameScreen(self.game.display, self.config, self.game))
                     except ValueError:
                         print("Ingrese un número válido")
 
@@ -122,18 +126,24 @@ class GameScreen(Screen):
         # 🚗💥 Colisiones con obstáculos
         for obst in self.carretera.obstacles:
             if self.jugador.rect.colliderect(obst.rect):
-                if obst.tipo == "hueco":
-                    if not self.jugador.esta_saltando:  # solo muere si no saltó
-                        print("❌ Caíste en un hueco. GAME OVER")
-                        run = False
-                else:  # obstáculos sólidos
-                    print(f"💥 Chocaste contra {obst.tipo}. GAME OVER")
-                    run = False
+                if not obst.tocado:
+                    obst.tocado = True
+                    if not self.jugador.esta_saltando:
+                        if obst.tipo == "hueco":
+                            print("❌ Caíste en un hueco.")
+                        else:  # obstáculos sólidos
+                            print(f"💥 Chocaste contra {obst.tipo}.")
+                    
+                        self.jugador.getDamage(int(obst.daño))
+                        if self.jugador.dañado:
+                            print("Carrito dañado 💀🚗")
+                            self.game.running = False
     # -------------------- Dibujado en pantalla --------------------
     def draw(self):
         self.display.fill(self.config["ventana"]["fondo"])
         self.carretera.dibujar(self.display)
         self.jugador.dibujar(self.display)
+        self.barraSalud()
 
         # Dibujar inputs y labels
         for i, rect in enumerate(self.input_rects):
@@ -141,3 +151,6 @@ class GameScreen(Screen):
             pygame.draw.rect(self.display, NEGRO, rect, 2)
             self.display.blit(self.fuente.render(self.labels[i], True, NEGRO), (20, rect.y + 5))
             self.display.blit(self.fuente.render(self.input_texts[i], True, NEGRO), (rect.x + 5, rect.y + 5))
+    
+    def barraSalud(self):
+        pygame.draw.rect(self.display,(255,0,0),(10,10,self.jugador.energia_actual,20))

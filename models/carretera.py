@@ -1,7 +1,6 @@
 import pygame
 from models.carrito import Carrito
 from models.obstaculos import Obstacle
-
 pygame.init()
 
 class Carretera:
@@ -11,17 +10,17 @@ class Carretera:
         self.alto_ventana = alto_ventana
         self.ancho_ventana = ancho_ventana
         self.pixeles_por_metro = self.config["carretera"]["pixeles_metro"]
-        self.longitud = self.config["carretera"]["longitud"] * self.pixeles_por_metro
+        self.longitud = (self.config["carretera"]["longitud"] * self.pixeles_por_metro
+                         if self.config["carretera"]["longitud"]<= 1000 
+                         else 1000*self.pixeles_por_metro)
         self.x = 0
         self.en_movimiento = True
         self.posicion_meta = self.longitud
         self.meta_alcanzada = False
-        self.pixels_por_metro = 50
         self.obstacles = []
         self.y = 100
         self._cargar_obstaculos(self.config["obstaculos"])
-        
-        
+             
     # Escalar la carretera a la longitud especificada
         self.sprite_escalado = pygame.transform.scale(
         self.sprite, 
@@ -100,10 +99,12 @@ class Carretera:
                 posY=self.y + o["posY"],  # se ajusta en relación con la carretera
                 ancho=o["ancho"],
                 alto=o["alto"],
-                imagen=o["imagen"]
+                imagen=o["imagen"],
+                daño=o["daño"]
             )
-            self.obstacles.append(obst)
-            print(f"✅ Obstacle {o['tipo']} en ({o['posX']}, {self.y + o['posY']})")
+            if o["posX"] < self.posicion_meta:
+                self.obstacles.append(obst)
+                print(f"✅ Obstacle {o['tipo']} en ({o['posX']}, {self.y + o['posY']})")
         
     # Cambiar el método dibujar_puntos_referencia por esto:
     def dibujar_meta(self, surface):
@@ -134,10 +135,11 @@ class Carretera:
 
             # Solo dibujar si está dentro de la pantalla
             if -100 < screen_x < self.ancho_ventana + 100:
-                surface.blit(obst.image, (screen_x, screen_y))
+                if screen_x < self.posicion_meta:
+                    surface.blit(obst.image, (screen_x, screen_y))
 
                 # Dibujar borde rojo (debug de colisiones)
-                pygame.draw.rect(surface, (255, 0, 0), obst.rect, 1)
+                #pygame.draw.rect(surface, (255, 0, 0), obst.rect, 1)
         
         # Dibujar línea de meta si está visible
         self.dibujar_meta(surface)

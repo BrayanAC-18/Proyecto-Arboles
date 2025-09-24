@@ -13,7 +13,6 @@ class Game:
 
     def set_screen(self, screen):
         self.current_screen = screen
-        print(self.config)
         self.run()
 
     def run(self):

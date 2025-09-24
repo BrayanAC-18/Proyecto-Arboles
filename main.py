@@ -3,7 +3,7 @@ from models.game import Game
 from models.gamescreen import GameScreen
 
 # Cargar configuración
-with open("config/config.json", "r") as file:
+with open("config/config.json", "r", encoding="utf-8") as file:
     config = json.load(file)
 
 # -------------------- Ejecutar el juego --------------------
