@@ -1,6 +1,7 @@
 import pygame
 import json
 from models.carrito import Carrito
+from models.obstaculos import Obstacle
 
 pygame.init()
 
@@ -14,12 +15,15 @@ with open("config/carrito.json", "r") as file:
 with open("config/carretera.json", "r") as file:
     carretera = json.load(file)
 
+with open("config/obstaculos.json", "r") as file:
+    obstaculos_config = json.load(file)
+
 display = pygame.display.set_mode((ventana["ancho"], ventana["alto"]))
 pygame.display.set_caption("Juego del Carrito")
 reloj = pygame.time.Clock()
 
 class Carretera:
-    def __init__(self, sprite, alto_ventana, ancho_ventana):
+    def __init__(self, sprite, alto_ventana, ancho_ventana, obstaculos_config):
         self.sprite = pygame.image.load(sprite)
         self.alto_ventana = alto_ventana
         self.ancho_ventana = ancho_ventana
@@ -30,6 +34,9 @@ class Carretera:
         self.posicion_meta = self.longitud
         self.meta_alcanzada = False
         self.pixels_por_metro = 50
+        self.obstacles = []
+        self.y = 100
+        self._cargar_obstaculos(obstaculos_config)
         
     # Escalar la carretera a la longitud especificada
         self.sprite_escalado = pygame.transform.scale(
@@ -87,6 +94,21 @@ class Carretera:
         # Centrar texto
         text_rect = texto.get_rect(center=(casilla_x + casilla_width // 2, casilla_y + casilla_height // 2))
         surface.blit(texto, text_rect)
+
+    def _cargar_obstaculos(self, obstaculos_config):
+        #Cargar obstáculos desde el JSON.
+        for o in obstaculos_config:
+            obst = Obstacle(
+                id_=o["id"],
+                tipo=o["tipo"],
+                posX=o["posX"],
+                posY=self.y + o["posY"],  # se ajusta en relación con la carretera
+                ancho=o["ancho"],
+                alto=o["alto"],
+                imagen=o["imagen"]
+            )
+            self.obstacles.append(obst)
+            print(f"✅ Obstacle {o['tipo']} en ({o['posX']}, {self.y + o['posY']})")
         
     # Cambiar el método dibujar_puntos_referencia por esto:
     def dibujar_meta(self, surface):
@@ -107,6 +129,18 @@ class Carretera:
             pos_x = self.x + (i * self.ancho_sprite)
             if pos_x < self.ancho_ventana and pos_x > -self.ancho_sprite:
                 surface.blit(self.sprite_escalado, (pos_x, self.y))
+        # Dibujar obstáculos
+        for obst in self.obstacles:
+            # Ajustar X con el desplazamiento de la carretera
+            screen_x = obst.posX + self.x
+            screen_y = obst.posY
+
+            # Solo dibujar si está dentro de la pantalla
+            if -100 < screen_x < self.ancho_ventana + 100:
+                surface.blit(obst.image, (screen_x, screen_y))
+
+                # ibujar rectángulo alrededor del obstáculo
+                pygame.draw.rect(surface, (255, 0, 0), obst.image.get_rect(topleft=(screen_x, screen_y)), 1)
         
         # Dibujar línea de meta si está visible
         self.dibujar_meta(surface)

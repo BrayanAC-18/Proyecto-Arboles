@@ -20,6 +20,9 @@ with open("config/carrito.json", "r") as file:
 with open("config/carretera.json", "r") as file: 
     carretera = json.load(file)
 
+with open("config/obstaculos.json", "r") as file: 
+    obstaculos_config = json.load(file)
+
 display = pygame.display.set_mode((ventana["ancho"],ventana["alto"]))
 pygame.display.set_caption("Juego del Carrito")
 reloj = pygame.time.Clock()
@@ -36,7 +39,7 @@ imagenes = [
 ]
 
 # Crear carretera (ajusta la ruta del sprite según tu archivo)
-carretera = Carretera(carretera["sprite"], ventana["alto"], ventana["ancho"])
+carretera = Carretera(carretera["sprite"], ventana["alto"], ventana["ancho"], obstaculos_config=obstaculos_config)
 
 limite_sup, limite_inf = carretera.obtener_limites() #obetener limites para limitar el movimiento del carro
 posicion_inicial_y = (limite_sup + limite_inf) // 2
