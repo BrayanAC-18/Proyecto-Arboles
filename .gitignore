@@ -1,0 +1,17 @@
+# Archivos de cache de Python
+_pycache_/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Archivos de logs
+*.log
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Configuración de IDE
+.vscode/
+.idea/
