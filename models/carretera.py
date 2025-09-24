@@ -131,16 +131,18 @@ class Carretera:
                 surface.blit(self.sprite_escalado, (pos_x, self.y))
         # Dibujar obstáculos
         for obst in self.obstacles:
-            # Ajustar X con el desplazamiento de la carretera
             screen_x = obst.posX + self.x
             screen_y = obst.posY
+
+            # 🔹 Actualizar rect del obstáculo para colisiones
+            obst.rect.topleft = (screen_x, screen_y)
 
             # Solo dibujar si está dentro de la pantalla
             if -100 < screen_x < self.ancho_ventana + 100:
                 surface.blit(obst.image, (screen_x, screen_y))
 
-                # ibujar rectángulo alrededor del obstáculo
-                pygame.draw.rect(surface, (255, 0, 0), obst.image.get_rect(topleft=(screen_x, screen_y)), 1)
+                # Dibujar borde rojo (debug de colisiones)
+                pygame.draw.rect(surface, (255, 0, 0), obst.rect, 1)
         
         # Dibujar línea de meta si está visible
         self.dibujar_meta(surface)

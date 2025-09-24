@@ -63,9 +63,18 @@ while run:
      # Actualizar carretera
     carretera.actualizar()
     carretera.dibujar(display)
-    
-    
-    
+
+    # 🚗💥 Colisiones con obstáculos
+    for obst in carretera.obstacles:
+        if jugador.rect.colliderect(obst.rect):
+            if obst.tipo == "hueco":
+                if not jugador.ha_saltado:  # solo muere si no saltó
+                    print("❌ Caíste en un hueco. GAME OVER")
+                    run = False
+            else:  # obstáculos sólidos
+                print(f"💥 Chocaste contra {obst.tipo}. GAME OVER")
+                run = False
+
     #calcula movimiento del jugador
     delta_y = 0
     
