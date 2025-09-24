@@ -1,207 +1,208 @@
 {
-  "carretera": {
-    "sprite": "assets/images/carretera.png",
-    "longitud": 5000,
-    "altura": 200,
-    "pixeles_metro": 10
-  },
-  "carrito": {
-    "ancho": 40,
-    "alto": 20,
-    "colorDefault": "assets/images/car/car_1.png",
-    "colorSalto": "assets/images/car/car_2.png",
-    "escala": 2,
-    "salto": 1.2,
-    "avance_ms": 1000,
-    "avance_m": 10,
-    "gravedad": 0.8
-  },
-  "ventana": {
-    "ancho": 400,
-    "alto": 600,
-    "fondo": "#ffffff",
-    "fps": 60
-  },
-  "obstaculos": [
-    {
-      "id": 1,
-      "tipo": "hueco",
-      "posX": 100,
-      "posY": 0,
-      "ancho": 40,
-      "alto": 10,
-      "imagen": "assets/images/hueco.png"
+    "carretera": {
+        "sprite": "assets/images/carretera.png",
+        "longitud": 500.0,
+        "altura": 200,
+        "pixeles_metro": 10
     },
-    {
-      "id": 2,
-      "tipo": "piedra",
-      "posX": 180,
-      "posY": 0,
-      "ancho": 30,
-      "alto": 30,
-      "imagen": "assets/images/piedra.png"
+    "carrito": {
+        "ancho": 40,
+        "alto": 20,
+        "colorDefault": "assets/images/car/car_1.png",
+        "colorSalto": "assets/images/car/car_2.png",
+        "escala": 2,
+        "salto": 1.0,
+        "avance_ms": 1000.0,
+        "avance_m": 10.0,
+        "gravedad": 0.8
     },
-    {
-      "id": 3,
-      "tipo": "cono",
-      "posX": 250,
-      "posY": 0,
-      "ancho": 20,
-      "alto": 50,
-      "imagen": "assets/images/cono.png"
+    "ventana": {
+        "ancho": 400,
+        "alto": 600,
+        "fondo": "#ffffff",
+        "fps": 60
     },
-    {
-      "id": 4,
-      "tipo": "aceite",
-      "posX": 320,
-      "posY": 0,
-      "ancho": 50,
-      "alto": 10,
-      "imagen": "assets/images/aceite.png"
-    },
-    {
-      "id": 5,
-      "tipo": "edificio",
-      "posX": 500,
-      "posY": -100,
-      "ancho": 120,
-      "alto": 200,
-      "imagen": "assets/images/edificio.png"
-    },
-    {
-      "id": 6,
-      "tipo": "semaforo",
-      "posX": 600,
-      "posY": -20,
-      "ancho": 20,
-      "alto": 80,
-      "imagen": "assets/images/semaforo.png"
-    },
-    {
-      "id": 7,
-      "tipo": "arbol",
-      "posX": 700,
-      "posY": -30,
-      "ancho": 40,
-      "alto": 60,
-      "imagen": "assets/images/arbol.png"
-    },
-    {
-      "id": 8,
-      "tipo": "poste",
-      "posX": 800,
-      "posY": -25,
-      "ancho": 10,
-      "alto": 70,
-      "imagen": "assets/images/poste.png"
-    },
-    {
-      "id": 9,
-      "tipo": "hueco",
-      "posX": 900,
-      "posY": 0,
-      "ancho": 40,
-      "alto": 10,
-      "imagen": "assets/images/hueco.png"
-    },
-    {
-      "id": 10,
-      "tipo": "piedra",
-      "posX": 1000,
-      "posY": 0,
-      "ancho": 30,
-      "alto": 30,
-      "imagen": "assets/images/piedra.png"
-    },
-    {
-      "id": 11,
-      "tipo": "cono",
-      "posX": 1100,
-      "posY": 0,
-      "ancho": 20,
-      "alto": 50,
-      "imagen": "assets/images/cono.png"
-    },
-    {
-      "id": 12,
-      "tipo": "aceite",
-      "posX": 1200,
-      "posY": 0,
-      "ancho": 50,
-      "alto": 10,
-      "imagen": "assets/images/aceite.png"
-    },
-    {
-      "id": 13,
-      "tipo": "semaforo",
-      "posX": 1300,
-      "posY": -20,
-      "ancho": 20,
-      "alto": 80,
-      "imagen": "assets/images/semaforo.png"
-    },
-    {
-      "id": 14,
-      "tipo": "edificio",
-      "posX": 1450,
-      "posY": -120,
-      "ancho": 150,
-      "alto": 250,
-      "imagen": "assets/images/edificio.png"
-    },
-    {
-      "id": 15,
-      "tipo": "arbol",
-      "posX": 1500,
-      "posY": -30,
-      "ancho": 40,
-      "alto": 60,
-      "imagen": "assets/images/arbol.png"
-    },
-    {
-      "id": 16,
-      "tipo": "piedra",
-      "posX": 1600,
-      "posY": 0,
-      "ancho": 30,
-      "alto": 30,
-      "imagen": "assets/images/piedra.png"
-    },
-    {
-      "id": 17,
-      "tipo": "cono",
-      "posX": 1700,
-      "posY": 0,
-      "ancho": 20,
-      "alto": 50,
-      "imagen": "assets/images/cono.png"
-    },
-    {
-      "id": 18,
-      "tipo": "aceite",
-      "posX": 1800,
-      "posY": 0,
-      "ancho": 50,
-      "alto": 10,
-      "imagen": "assets/images/aceite.png"
-    },
-    {
-      "id": 19,
-      "tipo": "poste",
-      "posX": 1900,
-      "posY": -25,
-      "ancho": 10,
-      "alto": 70,
-      "imagen": "assets/images/poste.png"
-    },
-    {
-      "id": 20,
-      "tipo": "hueco",
-      "posX": 2000,
-      "posY": 0,
-      "ancho": 40,
-      "alto": 10,
-      "imagen": "assets/images/hueco.png"
-    }
-  ]
+    "obstaculos": [
+        {
+            "id": 1,
+            "tipo": "hueco",
+            "posX": 100,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 10,
+            "imagen": "assets/images/hueco.png"
+        },
+        {
+            "id": 2,
+            "tipo": "piedra",
+            "posX": 180,
+            "posY": 0,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/piedra.png"
+        },
+        {
+            "id": 3,
+            "tipo": "cono",
+            "posX": 250,
+            "posY": 0,
+            "ancho": 20,
+            "alto": 50,
+            "imagen": "assets/images/cono.png"
+        },
+        {
+            "id": 4,
+            "tipo": "aceite",
+            "posX": 320,
+            "posY": 0,
+            "ancho": 50,
+            "alto": 10,
+            "imagen": "assets/images/aceite.png"
+        },
+        {
+            "id": 5,
+            "tipo": "edificio",
+            "posX": 500,
+            "posY": -100,
+            "ancho": 120,
+            "alto": 200,
+            "imagen": "assets/images/edificio.png"
+        },
+        {
+            "id": 6,
+            "tipo": "semaforo",
+            "posX": 600,
+            "posY": -20,
+            "ancho": 20,
+            "alto": 80,
+            "imagen": "assets/images/semaforo.png"
+        },
+        {
+            "id": 7,
+            "tipo": "arbol",
+            "posX": 700,
+            "posY": -30,
+            "ancho": 40,
+            "alto": 60,
+            "imagen": "assets/images/arbol.png"
+        },
+        {
+            "id": 8,
+            "tipo": "poste",
+            "posX": 800,
+            "posY": -25,
+            "ancho": 10,
+            "alto": 70,
+            "imagen": "assets/images/poste.png"
+        },
+        {
+            "id": 9,
+            "tipo": "hueco",
+            "posX": 900,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 10,
+            "imagen": "assets/images/hueco.png"
+        },
+        {
+            "id": 10,
+            "tipo": "piedra",
+            "posX": 1000,
+            "posY": 0,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/piedra.png"
+        },
+        {
+            "id": 11,
+            "tipo": "cono",
+            "posX": 1100,
+            "posY": 0,
+            "ancho": 20,
+            "alto": 50,
+            "imagen": "assets/images/cono.png"
+        },
+        {
+            "id": 12,
+            "tipo": "aceite",
+            "posX": 1200,
+            "posY": 0,
+            "ancho": 50,
+            "alto": 10,
+            "imagen": "assets/images/aceite.png"
+        },
+        {
+            "id": 13,
+            "tipo": "semaforo",
+            "posX": 1300,
+            "posY": -20,
+            "ancho": 20,
+            "alto": 80,
+            "imagen": "assets/images/semaforo.png"
+        },
+        {
+            "id": 14,
+            "tipo": "edificio",
+            "posX": 1450,
+            "posY": -120,
+            "ancho": 150,
+            "alto": 250,
+            "imagen": "assets/images/edificio.png"
+        },
+        {
+            "id": 15,
+            "tipo": "arbol",
+            "posX": 1500,
+            "posY": -30,
+            "ancho": 40,
+            "alto": 60,
+            "imagen": "assets/images/arbol.png"
+        },
+        {
+            "id": 16,
+            "tipo": "piedra",
+            "posX": 1600,
+            "posY": 0,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/piedra.png"
+        },
+        {
+            "id": 17,
+            "tipo": "cono",
+            "posX": 1700,
+            "posY": 0,
+            "ancho": 20,
+            "alto": 50,
+            "imagen": "assets/images/cono.png"
+        },
+        {
+            "id": 18,
+            "tipo": "aceite",
+            "posX": 1800,
+            "posY": 0,
+            "ancho": 50,
+            "alto": 10,
+            "imagen": "assets/images/aceite.png"
+        },
+        {
+            "id": 19,
+            "tipo": "poste",
+            "posX": 1900,
+            "posY": -25,
+            "ancho": 10,
+            "alto": 70,
+            "imagen": "assets/images/poste.png"
+        },
+        {
+            "id": 20,
+            "tipo": "hueco",
+            "posX": 2000,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 10,
+            "imagen": "assets/images/hueco.png"
+        }
+    ],
+    "distancia": 12313.0
 }

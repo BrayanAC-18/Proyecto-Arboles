@@ -18,12 +18,13 @@ class Carretera:
         self.sprite = pygame.image.load(sprite)
         self.alto_ventana = alto_ventana
         self.ancho_ventana = ancho_ventana
-        self.longitud = config["carretera"]["longitud"]
+        self.pixeles_por_metro = config["carretera"]["pixeles_metro"]
+        self.longitud = config["carretera"]["longitud"] * self.pixeles_por_metro
         self.x = 0
         self.en_movimiento = True
         self.posicion_meta = self.longitud
         self.meta_alcanzada = False
-        self.pixels_por_metro = config["carretera"]["pixeles_metro"]
+        
         
     # Escalar la carretera a la longitud especificada
         self.sprite_escalado = pygame.transform.scale(
@@ -58,7 +59,7 @@ class Carretera:
             velocidad_m_s = avance_m / (avance_ms / 1000.0)  # metros por segundo
 
             # convertir a píxeles/s
-            velocidad_px_s = velocidad_m_s * self.pixels_por_metro
+            velocidad_px_s = velocidad_m_s * self.pixeles_por_metro
 
             # desplazar carretera en píxeles según el dt
             desplazamiento = velocidad_px_s * (dt_ms / 1000.0)
@@ -75,8 +76,8 @@ class Carretera:
     
     def dibujar_contador_metros(self, surface):
         # Calcular metros recorridos y restantes con la escala fija
-        metros_recorridos = int((self.longitud - self.posicion_meta) / self.pixels_por_metro)
-        metros_restantes = int(self.posicion_meta / self.pixels_por_metro)
+        metros_recorridos = int((self.longitud - self.posicion_meta) / self.pixeles_por_metro)
+        metros_restantes = int(self.posicion_meta / self.pixeles_por_metro)
 
         # Fuente y texto
         font = pygame.font.Font(None, 36)
@@ -120,4 +121,9 @@ class Carretera:
     def obtener_limites(self):
         return self.limite_superior, self.limite_inferior
     
+    def actualizar_longitud(self, nueva_longitud):
+        self.longitud = nueva_longitud * self.pixeles_por_metro
+        self.posicion_meta = self.longitud
+        self.sprite_escalado = pygame.transform.scale(self.sprite, (int(self.longitud), config["carretera"]["altura"]))
+        
     
