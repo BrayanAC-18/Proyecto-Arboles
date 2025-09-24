@@ -1,7 +1,7 @@
 {
     "carretera": {
         "sprite": "assets/images/carretera.png",
-        "longitud": 500.0,
+        "longitud": 1000.0,
         "altura": 200,
         "pixeles_metro": 10
     },

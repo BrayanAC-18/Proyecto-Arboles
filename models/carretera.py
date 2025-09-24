@@ -1,25 +1,16 @@
 import pygame
-import json
 from models.carrito import Carrito
 
 pygame.init()
 
-# Cargar configuraciones
-with open("config/config.json", "r") as file:
-    config = json.load(file)
-
-
-display = pygame.display.set_mode((config["ventana"]["ancho"], config["ventana"]["alto"]))
-pygame.display.set_caption("Juego del Carrito")
-reloj = pygame.time.Clock()
-
 class Carretera:
-    def __init__(self, sprite, alto_ventana, ancho_ventana):
+    def __init__(self, sprite, alto_ventana, ancho_ventana, config):
+        self.config = config
         self.sprite = pygame.image.load(sprite)
         self.alto_ventana = alto_ventana
         self.ancho_ventana = ancho_ventana
-        self.pixeles_por_metro = config["carretera"]["pixeles_metro"]
-        self.longitud = config["carretera"]["longitud"] * self.pixeles_por_metro
+        self.pixeles_por_metro = self.config["carretera"]["pixeles_metro"]
+        self.longitud = self.config["carretera"]["longitud"] * self.pixeles_por_metro
         self.x = 0
         self.en_movimiento = True
         self.posicion_meta = self.longitud
@@ -29,7 +20,7 @@ class Carretera:
     # Escalar la carretera a la longitud especificada
         self.sprite_escalado = pygame.transform.scale(
         self.sprite, 
-        (self.longitud, config["carretera"]["altura"])
+        (self.longitud, self.config["carretera"]["altura"])
     )
         
         self.ancho_sprite = self.sprite_escalado.get_width()
@@ -54,8 +45,8 @@ class Carretera:
 
         if not self.meta_alcanzada:
             # calcular velocidad del carro en m/s
-            avance_m = config["carrito"]["avance_m"]
-            avance_ms = config["carrito"]["avance_ms"]
+            avance_m = self.config["carrito"]["avance_m"]
+            avance_ms = self.config["carrito"]["avance_ms"]
             velocidad_m_s = avance_m / (avance_ms / 1000.0)  # metros por segundo
 
             # convertir a píxeles/s
@@ -124,6 +115,6 @@ class Carretera:
     def actualizar_longitud(self, nueva_longitud):
         self.longitud = nueva_longitud * self.pixeles_por_metro
         self.posicion_meta = self.longitud
-        self.sprite_escalado = pygame.transform.scale(self.sprite, (int(self.longitud), config["carretera"]["altura"]))
+        self.sprite_escalado = pygame.transform.scale(self.sprite, (int(self.longitud), self.config["carretera"]["altura"]))
         
     

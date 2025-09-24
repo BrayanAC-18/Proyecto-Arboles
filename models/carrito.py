@@ -1,12 +1,9 @@
 import pygame
-import json
-
-with open("config/config.json", "r") as file:
-    config = json.load(file)
 
 class Carrito():
-    def __init__(self,x,y,imagenes):
-        self.rect = pygame.Rect(0,0,config["carrito"]["ancho"],config["carrito"]["alto"]) #Creará un rectangulo que determina la forma del carrito
+    def __init__(self,x,y,imagenes, config):
+        self.config = config
+        self.rect = pygame.Rect(0,0,self.config["carrito"]["ancho"],self.config["carrito"]["alto"]) #Creará un rectangulo que determina la forma del carrito
         self.rect.center=(x,y)
         self.imagenes = imagenes
         self.imagen_actual = imagenes[0]
@@ -15,7 +12,7 @@ class Carrito():
         self.esta_saltando = False
         self.velocidad_salto = 0
         self.gravedad = 1  # Ajusta este valor para cambiar la altura del salto
-        self.fuerza_salto = -config["carrito"]["salto"]*config["carretera"]["pixeles_metro"]  # Valor negativo porque Y aumenta hacia abajo en pygame
+        self.fuerza_salto = -self.config["carrito"]["salto"]*self.config["carretera"]["pixeles_metro"]  # Valor negativo porque Y aumenta hacia abajo en pygame
         self.posicion_base_y = y  # Guardamos la posición original en Y
         
     
