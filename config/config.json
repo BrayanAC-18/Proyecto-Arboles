@@ -1,7 +1,7 @@
 {
     "carretera": {
         "sprite": "assets/images/carretera.png",
-        "longitud": 700.0,
+        "longitud": 1000.0,
         "altura": 200,
         "pixeles_metro": 10
     },
@@ -11,8 +11,8 @@
         "colorDefault": "assets/images/car/car_1.png",
         "colorSalto": "assets/images/car/car_2.png",
         "escala": 2,
-        "salto": 1.5,
-        "avance_ms": 20.0,
+        "salto": 1.0,
+        "avance_ms": 200.0,
         "avance_m": 5.0,
         "gravedad": 0.8,
         "energia": 100

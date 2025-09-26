@@ -20,7 +20,7 @@ class Obstacle:
             raise FileNotFoundError(f"No se encontró la imagen: {image_path}")
 
         # Cargar imagen
-        self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(self.image, (self.ancho, self.alto))
 
         # Rectángulo de colisión

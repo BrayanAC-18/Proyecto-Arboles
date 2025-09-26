@@ -4,6 +4,7 @@ pygame.init()
 from models.screen import Screen
 from models.carrito import Carrito
 from models.carretera import Carretera
+from controller.grafico_avl import draw_avl
 
 
 # Colores
@@ -13,7 +14,7 @@ GRIS = (200, 200, 200)
 
 
 class GameScreen(Screen):
-    def __init__(self, display, config, game):
+    def __init__(self, display, config, game, avl_root):
         super().__init__(display, config)
         self.fuente = pygame.font.Font(None, 25)
         self.game = game
@@ -21,6 +22,7 @@ class GameScreen(Screen):
         self.carretera = Carretera(config["carretera"]["sprite"], config["ventana"]["alto"], config["ventana"]["ancho"], self.config)
         limite_sup, limite_inf = self.carretera.obtener_limites()
         posicion_inicial_y = (limite_sup + limite_inf) // 2
+        self.avl_root = avl_root
 
         # Jugador
         imagenes = [
@@ -123,7 +125,7 @@ class GameScreen(Screen):
         nueva_y = max(limite_sup, min(nueva_y, limite_inf - self.jugador.rect.height))
         self.jugador.movimiento(nueva_y - self.jugador.rect.y, self.salto)
         
-        # 🚗💥 Colisiones con obstáculos
+        # 💥 Colisiones con obstáculos
         for obst in self.carretera.obstacles:
             if self.jugador.rect.colliderect(obst.rect):
                 if not obst.tocado:
@@ -151,6 +153,16 @@ class GameScreen(Screen):
             pygame.draw.rect(self.display, NEGRO, rect, 2)
             self.display.blit(self.fuente.render(self.labels[i], True, NEGRO), (20, rect.y + 5))
             self.display.blit(self.fuente.render(self.input_texts[i], True, NEGRO), (rect.x + 5, rect.y + 5))
-    
+
+         # Dibujar árbol AVL en la parte inferior
+        font = pygame.font.SysFont(None, 18)
+        if self.avl_root:
+            draw_avl(self.display, self.avl_root,
+                    self.config["ventana"]["ancho"] // 2,
+                    self.config["ventana"]["alto"] - 200,
+                    150, 80, font)
+
+        pygame.display.flip()
+
     def barraSalud(self):
         pygame.draw.rect(self.display,(255,0,0),(10,10,self.jugador.energia_actual,20))
