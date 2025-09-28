@@ -12,6 +12,10 @@ BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
 GRIS = (200, 200, 200)
 
+def tree_height(node):
+    if not node:
+        return 0
+    return 1 + max(tree_height(node.left), tree_height(node.right))
 
 class GameScreen(Screen):
     def __init__(self, display, config, game, avl_root):
@@ -147,22 +151,34 @@ class GameScreen(Screen):
         self.jugador.dibujar(self.display)
         self.barraSalud()
 
-        # Dibujar inputs y labels
+        # Inputs
         for i, rect in enumerate(self.input_rects):
             pygame.draw.rect(self.display, GRIS, rect)
             pygame.draw.rect(self.display, NEGRO, rect, 2)
             self.display.blit(self.fuente.render(self.labels[i], True, NEGRO), (20, rect.y + 5))
             self.display.blit(self.fuente.render(self.input_texts[i], True, NEGRO), (rect.x + 5, rect.y + 5))
 
-         # Dibujar árbol AVL en la parte inferior
-        font = pygame.font.SysFont(None, 18)
+        # Árbol AVL escalable
+        font = pygame.font.SysFont(None, 16)
         if self.avl_root:
+            h = tree_height(self.avl_root)
+
+            # Altura disponible debajo de la carretera
+            available_height = self.config["ventana"]["alto"] * 0.4
+            dy = max(50, int(available_height / h))  # Espaciado vertical dinámico
+
+            # Anchura inicial
+            dx = int(self.config["ventana"]["ancho"] * 0.12)
+
+            # Radio de los nodos ajustado
+            radius = max(10, int(40 - h * 2))
+
             draw_avl(self.display, self.avl_root,
-                    self.config["ventana"]["ancho"] // 2,
-                    self.config["ventana"]["alto"] - 200,
-                    150, 80, font)
+                    int(self.config["ventana"]["ancho"] * 0.7),  # centro a la derecha
+                    int(self.config["ventana"]["alto"] * 0.55),  # debajo de la carretera
+                    dx, dy, font, radius)
 
         pygame.display.flip()
-
+        
     def barraSalud(self):
         pygame.draw.rect(self.display,(255,0,0),(10,10,self.jugador.energia_actual,20))

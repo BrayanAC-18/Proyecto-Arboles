@@ -1,32 +1,29 @@
 import pygame
 
-import pygame
-
-def draw_avl(surface, node, x, y, dx, dy, font):
+def draw_avl(surface, node, x, y, dx, dy, font, radius=10):
     if node is None:
         return
 
     # Dibujar ramas
     if node.left:
         pygame.draw.line(surface, (0,0,0), (x, y), (x - dx, y + dy), 2)
-        draw_avl(surface, node.left, x - dx, y + dy, dx//2, dy, font)
+        draw_avl(surface, node.left, x - dx, y + dy, int(dx*0.45), dy, font, radius)
     if node.right:
         pygame.draw.line(surface, (0,0,0), (x, y), (x + dx, y + dy), 2)
-        draw_avl(surface, node.right, x + dx, y + dy, dx//2, dy, font)
+        draw_avl(surface, node.right, x + dx, y + dy, int(dx*0.45), dy, font, radius)
 
-    # Dibujar nodo (círculo)
-    pygame.draw.circle(surface, (200,200,255), (x, y), 30)
-    pygame.draw.circle(surface, (0,0,0), (x, y), 30, 2)
+    # Nodo
+    pygame.draw.circle(surface, (200,200,255), (x, y), radius)
+    pygame.draw.circle(surface, (0,0,0), (x, y), radius, 2)
 
-      # Texto dentro del nodo (coordenadas)
+    # Texto coordenadas
     coords_text = font.render(f"({node.obstacle.posX},{node.obstacle.posY})", True, (0,0,0))
     coords_rect = coords_text.get_rect(center=(x, y))
     surface.blit(coords_text, coords_rect)
 
-    # Texto debajo (tipo de obstáculo)
+    # Texto tipo
     name_text = font.render(node.obstacle.tipo, True, (0,0,0))
-    name_rect = name_text.get_rect(center=(x, y + 35))
+    name_rect = name_text.get_rect(center=(x, y + radius + 10))
     surface.blit(name_text, name_rect)
-
 
 
