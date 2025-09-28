@@ -1,7 +1,7 @@
 {
     "carretera": {
         "sprite": "assets/images/carretera.png",
-        "longitud": 500.0,
+        "longitud": 1000.0,
         "altura": 200,
         "pixeles_metro": 10
     },
@@ -11,13 +11,14 @@
         "colorDefault": "assets/images/car/car_1.png",
         "colorSalto": "assets/images/car/car_2.png",
         "escala": 2,
-        "salto": 2.0,
-        "avance_ms": 1000.0,
-        "avance_m": 20.0,
-        "gravedad": 0.8
+        "salto": 1.0,
+        "avance_ms": 200.0,
+        "avance_m": 5.0,
+        "gravedad": 0.8,
+        "energia": 100
     },
     "ventana": {
-        "ancho": 400,
+        "ancho": 800,
         "alto": 600,
         "fondo": "#ffffff",
         "fps": 60
@@ -30,7 +31,8 @@
             "posY": 0,
             "ancho": 40,
             "alto": 200,
-            "imagen": "assets/images/obstacle/hueco.png"
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 4
         },
         {
             "id": 2,
@@ -39,7 +41,8 @@
             "posY": 40,
             "ancho": 30,
             "alto": 30,
-            "imagen": "assets/images/obstacle/piedra.png"
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 5
         },
         {
             "id": 3,
@@ -48,7 +51,8 @@
             "posY": 100,
             "ancho": 30,
             "alto": 50,
-            "imagen": "assets/images/obstacle/cono.png"
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 6
         },
         {
             "id": 4,
@@ -57,7 +61,8 @@
             "posY": 50,
             "ancho": 50,
             "alto": 30,
-            "imagen": "assets/images/obstacle/aceite.png"
+            "imagen": "assets/images/obstacle/aceite.png",
+            "da\u00f1o": 7
         },
         {
             "id": 5,
@@ -66,7 +71,8 @@
             "posY": 40,
             "ancho": 50,
             "alto": 80,
-            "imagen": "assets/images/obstacle/arbol.png"
+            "imagen": "assets/images/obstacle/arbol.png",
+            "da\u00f1o": 13
         },
         {
             "id": 6,
@@ -75,7 +81,8 @@
             "posY": 100,
             "ancho": 30,
             "alto": 90,
-            "imagen": "assets/images/obstacle/poste.png"
+            "imagen": "assets/images/obstacle/poste.png",
+            "da\u00f1o": 12
         },
         {
             "id": 7,
@@ -84,7 +91,8 @@
             "posY": 100,
             "ancho": 30,
             "alto": 50,
-            "imagen": "assets/images/obstacle/cono.png"
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 10
         },
         {
             "id": 8,
@@ -93,7 +101,8 @@
             "posY": 0,
             "ancho": 40,
             "alto": 200,
-            "imagen": "assets/images/obstacle/hueco.png"
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 8
         },
         {
             "id": 9,
@@ -102,7 +111,8 @@
             "posY": 90,
             "ancho": 30,
             "alto": 30,
-            "imagen": "assets/images/obstacle/piedra.png"
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 15
         },
         {
             "id": 10,
@@ -111,7 +121,8 @@
             "posY": 40,
             "ancho": 50,
             "alto": 30,
-            "imagen": "assets/images/obstacle/aceite.png"
+            "imagen": "assets/images/obstacle/aceite.png",
+            "da\u00f1o": 11
         },
         {
             "id": 11,
@@ -120,7 +131,8 @@
             "posY": 100,
             "ancho": 40,
             "alto": 80,
-            "imagen": "assets/images/obstacle/semaforo.png"
+            "imagen": "assets/images/obstacle/semaforo.png",
+            "da\u00f1o": 17
         },
         {
             "id": 12,
@@ -129,7 +141,8 @@
             "posY": 0,
             "ancho": 40,
             "alto": 200,
-            "imagen": "assets/images/obstacle/hueco.png"
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 11
         },
         {
             "id": 13,
@@ -138,7 +151,8 @@
             "posY": 90,
             "ancho": 30,
             "alto": 50,
-            "imagen": "assets/images/obstacle/cono.png"
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 5
         },
         {
             "id": 14,
@@ -147,7 +161,8 @@
             "posY": 40,
             "ancho": 50,
             "alto": 80,
-            "imagen": "assets/images/obstacle/arbol.png"
+            "imagen": "assets/images/obstacle/arbol.png",
+            "da\u00f1o": 14
         },
         {
             "id": 15,
@@ -156,7 +171,8 @@
             "posY": 30,
             "ancho": 30,
             "alto": 90,
-            "imagen": "assets/images/obstacle/poste.png"
+            "imagen": "assets/images/obstacle/poste.png",
+            "da\u00f1o": 10
         },
         {
             "id": 16,
@@ -165,7 +181,8 @@
             "posY": 0,
             "ancho": 40,
             "alto": 200,
-            "imagen": "assets/images/obstacle/hueco.png"
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 17
         },
         {
             "id": 17,
@@ -174,7 +191,8 @@
             "posY": 90,
             "ancho": 30,
             "alto": 30,
-            "imagen": "assets/images/obstacle/piedra.png"
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 16
         },
         {
             "id": 18,
@@ -183,7 +201,8 @@
             "posY": 40,
             "ancho": 30,
             "alto": 50,
-            "imagen": "assets/images/obstacle/cono.png"
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 8
         },
         {
             "id": 19,
@@ -192,16 +211,18 @@
             "posY": 100,
             "ancho": 50,
             "alto": 30,
-            "imagen": "assets/images/obstacle/aceite.png"
+            "imagen": "assets/images/obstacle/aceite.png",
+            "da\u00f1o": 13
         },
         {
-            "id": 30,
+            "id": 20,
             "tipo": "arbol",
             "posX": 6000,
             "posY": 90,
             "ancho": 50,
             "alto": 80,
-            "imagen": "assets/images/obstacle/arbol.png"
+            "imagen": "assets/images/obstacle/arbol.png",
+            "da\u00f1o": 15
         },
         {
             "id": 21,
@@ -210,7 +231,218 @@
             "posY": 70,
             "ancho": 50,
             "alto": 30,
-            "imagen": "assets/images/obstacle/aceite.png"
+            "imagen": "assets/images/obstacle/aceite.png",
+            "da\u00f1o": 12
+        },
+        {
+            "id": 22,
+            "tipo": "hueco",
+            "posX": 6000,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 200,
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 12
+        },
+        {
+            "id": 23,
+            "tipo": "piedra",
+            "posX": 6200,
+            "posY": 30,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 15
+        },
+        {
+            "id": 24,
+            "tipo": "cono",
+            "posX": 6400,
+            "posY": 50,
+            "ancho": 30,
+            "alto": 50,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 10
+        },
+        {
+            "id": 25,
+            "tipo": "hueco",
+            "posX": 6600,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 200,
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 18
+        },
+        {
+            "id": 26,
+            "tipo": "piedra",
+            "posX": 6800,
+            "posY": 40,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 12
+        },
+        {
+            "id": 27,
+            "tipo": "cono",
+            "posX": 7000,
+            "posY": 60,
+            "ancho": 30,
+            "alto": 50,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 15
+        },
+        {
+            "id": 28,
+            "tipo": "hueco",
+            "posX": 7200,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 200,
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 20
+        },
+        {
+            "id": 29,
+            "tipo": "piedra",
+            "posX": 7400,
+            "posY": 30,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 10
+        },
+        {
+            "id": 30,
+            "tipo": "cono",
+            "posX": 7600,
+            "posY": 50,
+            "ancho": 30,
+            "alto": 50,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 15
+        },
+        {
+            "id": 31,
+            "tipo": "hueco",
+            "posX": 7800,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 200,
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 18
+        },
+        {
+            "id": 32,
+            "tipo": "piedra",
+            "posX": 8000,
+            "posY": 40,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 12
+        },
+        {
+            "id": 33,
+            "tipo": "cono",
+            "posX": 8200,
+            "posY": 60,
+            "ancho": 30,
+            "alto": 50,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 15
+        },
+        {
+            "id": 34,
+            "tipo": "hueco",
+            "posX": 8400,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 200,
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 20
+        },
+        {
+            "id": 35,
+            "tipo": "piedra",
+            "posX": 8600,
+            "posY": 30,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 10
+        },
+        {
+            "id": 36,
+            "tipo": "cono",
+            "posX": 8800,
+            "posY": 50,
+            "ancho": 30,
+            "alto": 50,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 15
+        },
+        {
+            "id": 37,
+            "tipo": "hueco",
+            "posX": 9000,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 200,
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 18
+        },
+        {
+            "id": 38,
+            "tipo": "piedra",
+            "posX": 9200,
+            "posY": 40,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 12
+        },
+        {
+            "id": 39,
+            "tipo": "cono",
+            "posX": 9400,
+            "posY": 60,
+            "ancho": 30,
+            "alto": 50,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 15
+        },
+        {
+            "id": 40,
+            "tipo": "hueco",
+            "posX": 9600,
+            "posY": 0,
+            "ancho": 40,
+            "alto": 200,
+            "imagen": "assets/images/obstacle/hueco.png",
+            "da\u00f1o": 20
+        },
+        {
+            "id": 41,
+            "tipo": "piedra",
+            "posX": 9800,
+            "posY": 30,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 10
+        },
+        {
+            "id": 42,
+            "tipo": "cono",
+            "posX": 10000,
+            "posY": 50,
+            "ancho": 30,
+            "alto": 50,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 15
         }
     ]
 }

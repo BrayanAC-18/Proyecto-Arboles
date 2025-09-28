@@ -4,6 +4,7 @@ pygame.init()
 from models.screen import Screen
 from models.carrito import Carrito
 from models.carretera import Carretera
+from controller.grafico_avl import draw_avl
 
 
 # Colores
@@ -13,7 +14,7 @@ GRIS = (200, 200, 200)
 
 
 class GameScreen(Screen):
-    def __init__(self, display, config, game):
+    def __init__(self, display, config, game, avl_root):
         super().__init__(display, config)
         self.fuente = pygame.font.Font(None, 25)
         self.game = game
@@ -21,6 +22,7 @@ class GameScreen(Screen):
         self.carretera = Carretera(config["carretera"]["sprite"], config["ventana"]["alto"], config["ventana"]["ancho"], self.config)
         limite_sup, limite_inf = self.carretera.obtener_limites()
         posicion_inicial_y = (limite_sup + limite_inf) // 2
+        self.avl_root = avl_root
 
         # Jugador
         imagenes = [
@@ -68,6 +70,9 @@ class GameScreen(Screen):
                             ("carrito", "avance_ms")
                         ]
                         clave_principal, subclave = claves[self.active_input]
+                        if subclave == "longitud" and float(self.input_texts[self.active_input]) > 1000:
+                            print("Longitud de carretera maxima: 1000m 🙈")
+                            
                         self.config[clave_principal][subclave] = float(self.input_texts[self.active_input])
 
                         # Guardar en archivo
@@ -78,8 +83,9 @@ class GameScreen(Screen):
                         with open("config/config.json", "r") as f:
                             self.config = json.load(f)
                             self.game.config = self.config
-                        # REINICIAR la pantalla con la nueva configuración
-                        self.game.set_screen(GameScreen(self.game.display, self.config, self.game))
+                        # Cambiar la pantalla, solo si pygame sigue inicializado
+                        if pygame.get_init() and self.game.display:
+                            self.game.set_screen(GameScreen(self.game.display, self.config, self.game))
                     except ValueError:
                         print("Ingrese un número válido")
 
@@ -119,21 +125,27 @@ class GameScreen(Screen):
         nueva_y = max(limite_sup, min(nueva_y, limite_inf - self.jugador.rect.height))
         self.jugador.movimiento(nueva_y - self.jugador.rect.y, self.salto)
         
-        # 🚗💥 Colisiones con obstáculos
+        # 💥 Colisiones con obstáculos
         for obst in self.carretera.obstacles:
             if self.jugador.rect.colliderect(obst.rect):
-                if obst.tipo == "hueco":
-                    if not self.jugador.esta_saltando:  # solo muere si no saltó
-                        print("❌ Caíste en un hueco. GAME OVER")
-                        run = False
-                else:  # obstáculos sólidos
-                    print(f"💥 Chocaste contra {obst.tipo}. GAME OVER")
-                    run = False
+                if not obst.tocado:
+                    obst.tocado = True
+                    if not self.jugador.esta_saltando:
+                        if obst.tipo == "hueco":
+                            print("❌ Caíste en un hueco.")
+                        else:  # obstáculos sólidos
+                            print(f"💥 Chocaste contra {obst.tipo}.")
+                    
+                        self.jugador.getDamage(int(obst.daño))
+                        if self.jugador.dañado:
+                            print("Carrito dañado 💀🚗")
+                            self.game.running = False
     # -------------------- Dibujado en pantalla --------------------
     def draw(self):
         self.display.fill(self.config["ventana"]["fondo"])
         self.carretera.dibujar(self.display)
         self.jugador.dibujar(self.display)
+        self.barraSalud()
 
         # Dibujar inputs y labels
         for i, rect in enumerate(self.input_rects):
@@ -141,3 +153,16 @@ class GameScreen(Screen):
             pygame.draw.rect(self.display, NEGRO, rect, 2)
             self.display.blit(self.fuente.render(self.labels[i], True, NEGRO), (20, rect.y + 5))
             self.display.blit(self.fuente.render(self.input_texts[i], True, NEGRO), (rect.x + 5, rect.y + 5))
+
+         # Dibujar árbol AVL en la parte inferior
+        font = pygame.font.SysFont(None, 18)
+        if self.avl_root:
+            draw_avl(self.display, self.avl_root,
+                    self.config["ventana"]["ancho"] // 2,
+                    self.config["ventana"]["alto"] - 200,
+                    150, 80, font)
+
+        pygame.display.flip()
+
+    def barraSalud(self):
+        pygame.draw.rect(self.display,(255,0,0),(10,10,self.jugador.energia_actual,20))

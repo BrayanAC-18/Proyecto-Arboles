@@ -14,3 +14,5 @@ class Colision:
     def __repr__(self):
         return f"Colision(carrito={self.carrito}, obstaculo={self.obstaculo})"
     
+    
+    

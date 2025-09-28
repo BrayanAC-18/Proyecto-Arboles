@@ -1,5 +1,6 @@
-# Archivos de cache de Python
-_pycache_/
+# Ignorar carpetas __pycache__ en cualquier lugar
+__pycache__/
+**/__pycache__/
 *.py[cod]
 *.pyo
 *.pyd
