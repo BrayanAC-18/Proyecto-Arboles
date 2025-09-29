@@ -443,6 +443,26 @@
             "alto": 50,
             "imagen": "assets/images/obstacle/cono.png",
             "da\u00f1o": 15
+        },
+        {
+            "id": 43,
+            "tipo": "cono",
+            "posX": 100,
+            "posY": 90,
+            "ancho": 30,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/cono.png",
+            "da\u00f1o": 1
+        },
+        {
+            "id": 44,
+            "tipo": "piedra",
+            "posX": 400,
+            "posY": 90,
+            "ancho": 10,
+            "alto": 10,
+            "imagen": "assets/images/obstacle/piedra.png",
+            "da\u00f1o": 15
         }
     ]
 }
