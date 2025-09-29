@@ -356,12 +356,12 @@
         },
         {
             "id": 34,
-            "tipo": "hueco",
+            "tipo": "arbol",
             "posX": 8400,
             "posY": 0,
-            "ancho": 40,
-            "alto": 200,
-            "imagen": "assets/images/obstacle/hueco.png",
+            "ancho": 50,
+            "alto": 80,
+            "imagen": "assets/images/obstacle/arbol.png",
             "da\u00f1o": 20
         },
         {
@@ -447,7 +447,7 @@
         {
             "id": 43,
             "tipo": "cono",
-            "posX": 100,
+            "posX": 5000,
             "posY": 90,
             "ancho": 30,
             "alto": 30,
@@ -457,10 +457,10 @@
         {
             "id": 44,
             "tipo": "piedra",
-            "posX": 400,
+            "posX": 4000,
             "posY": 90,
-            "ancho": 10,
-            "alto": 10,
+            "ancho": 30,
+            "alto": 30,
             "imagen": "assets/images/obstacle/piedra.png",
             "da\u00f1o": 15
         }
