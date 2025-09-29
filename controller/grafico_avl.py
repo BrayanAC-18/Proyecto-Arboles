@@ -7,10 +7,10 @@ def draw_avl(surface, node, x, y, dx, dy, font, radius=10):
     # Dibujar ramas
     if node.left:
         pygame.draw.line(surface, (0,0,0), (x, y), (x - dx, y + dy), 2)
-        draw_avl(surface, node.left, x - dx, y + dy, int(dx*0.45), dy, font, radius)
+        draw_avl(surface, node.left, x - dx, y + dy, int(dx*0.70), dy, font, radius)
     if node.right:
         pygame.draw.line(surface, (0,0,0), (x, y), (x + dx, y + dy), 2)
-        draw_avl(surface, node.right, x + dx, y + dy, int(dx*0.45), dy, font, radius)
+        draw_avl(surface, node.right, x + dx, y + dy, int(dx*0.70), dy, font, radius)
 
     # Nodo
     pygame.draw.circle(surface, (200,200,255), (x, y), radius)
@@ -23,7 +23,7 @@ def draw_avl(surface, node, x, y, dx, dy, font, radius=10):
 
     # Texto tipo
     name_text = font.render(node.obstacle.tipo, True, (0,0,0))
-    name_rect = name_text.get_rect(center=(x, y + radius + 10))
+    name_rect = name_text.get_rect(center=(x, y + radius + 5))
     surface.blit(name_text, name_rect)
 
 

@@ -157,17 +157,21 @@ class GameScreen(Screen):
             self.display.blit(self.fuente.render(self.input_texts[i], True, NEGRO), (rect.x + 5, rect.y + 5))
 
         if self.avl_tree and self.avl_tree.root:
-            h = tree_height(self.avl_tree.root)
-            available_height = self.config["ventana"]["alto"] * 0.4
-            dy = max(50, int(available_height / h) if h > 0 else 50)
-            dx = int(self.config["ventana"]["ancho"] * 0.12)
-            radius = max(10, int(40 - h * 2) if h > 0 else 20)
-
+            # Fuente pequeña
             font = pygame.font.SysFont(None, 16)
-            draw_avl(self.display, self.avl_tree.root,
-                     int(self.config["ventana"]["ancho"] * 0.7),
-                     int(self.config["ventana"]["alto"] * 0.55),
-                     dx, dy, font, radius)
+
+            # Valores fijos para que siempre se vea compacto
+            dx = 100        # separación horizontal entre nodos
+            dy = 50        # separación vertical entre niveles
+            radius = 25    # tamaño de los círculos
+
+            # Posición inicial del árbol (zona inferior de la pantalla)
+            start_x = int(self.config["ventana"]["ancho"] * 0.6)
+            start_y = int(self.config["ventana"]["alto"] * 0.55)
+
+            # Dibujo estático
+            draw_avl(self.display, self.avl_tree.root, start_x, start_y, dx, dy, font, radius)
+
 
         node_count = len(self.avl_tree.inorder()) if self.avl_tree and self.avl_tree.root else 0
         info_surface = self.fuente.render(f"Nodos en árbol: {node_count}", True, NEGRO)
