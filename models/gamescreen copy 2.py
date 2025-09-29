@@ -1,6 +1,5 @@
 import pygame, json
 import sys, os
-from models.obstaculos import Obstacle
 
 # Agregar la raíz del proyecto al path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

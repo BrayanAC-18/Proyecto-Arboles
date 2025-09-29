@@ -14,6 +14,7 @@ class AVL:
                 self.root = new_node
             else:
                 self.root = self._insert(self.root, new_node)
+        return self   # 🔹 siempre devuelve el AVL, no un Node
             
     def _insert(self, current_node, new_node):
         if new_node.obstacle < current_node.obstacle:
@@ -143,8 +144,12 @@ class AVL:
         node_to_delete = self.search(obstacle)
         if node_to_delete is not None:
             self.root = self._delete(self.root, obstacle)
+        return self  # 🔹 Siempre retorna el objeto AVLte(self.root, obstacle)
+    
 
     def _delete(self, node, obstacle):
+        print(f"🗑️ Eliminando obstáculo {node.obstacle} del árbol")
+
         if node is None:
             return node
 
@@ -209,8 +214,8 @@ class AVL:
         if balance < -1 and self._get_balance(node.right) > 0:
             node.right = self._rotate_right(node.right)
             return self._rotate_left(node)
-
         return node
+    
 
     # Recorrido inorden (izquierda → raíz → derecha)
     def inorder(self, node=None):

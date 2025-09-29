@@ -13,7 +13,7 @@
         "escala": 2,
         "salto": 1.0,
         "avance_ms": 200.0,
-        "avance_m": 5.0,
+        "avance_m": 10.0,
         "gravedad": 0.8,
         "energia": 100
     },

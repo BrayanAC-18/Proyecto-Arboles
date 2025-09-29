@@ -28,7 +28,7 @@ for obj in config["obstaculos"]:
 # -------------------- Ejecutar el juego --------------------
 if __name__ == "__main__":
     juego = Game(config)
-    pantalla_juego = GameScreen(juego.display, config, juego,  avl.root)
+    pantalla_juego = GameScreen(juego.display, config, juego,  avl)
     juego.set_screen(pantalla_juego)
 
 

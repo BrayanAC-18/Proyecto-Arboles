@@ -37,16 +37,11 @@ class Obstacle:
     def __repr__(self):
         return f"Obstacle(id={self.id}, tipo={self.tipo}, pos=({self.posX},{self.posY}))"
 
-    # 🔹 Métodos de comparación para el AVL
+    def __eq__(self, other):
+        return  isinstance(other, Obstacle) and self.id == other.id
+
     def __lt__(self, other):
-        if self.posX == other.posX:
-            return self.posY < other.posY
-        return self.posX < other.posX
+        return isinstance(other, Obstacle) and self.id < other.id
 
     def __gt__(self, other):
-        if self.posX == other.posX:
-            return self.posY > other.posY
-        return self.posX > other.posX
-
-    def __eq__(self, other):
-        return self.posX == other.posX and self.posY == other.posY
+        return isinstance(other, Obstacle) and self.id > other.id
