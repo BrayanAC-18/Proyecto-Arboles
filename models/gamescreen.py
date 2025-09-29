@@ -140,8 +140,39 @@ class GameScreen(Screen):
         for obst in pasados:
             if self.avl_tree:
                 self.avl_tree.delete(obst)
+                self.exportar_arbol(f"arbol_{obst.id}.png") # guarda uno distinto por obstáculo
             if obst in self.carretera.obstacles:
                 self.carretera.obstacles.remove(obst)
+
+    def exportar_arbol(self, filename="arbol_actual.png"):
+        if not self.avl_tree or not self.avl_tree.root:
+            return
+        
+        # Crear carpeta si no existe
+        folder = "imagenes_avl"
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        
+        # Crear una superficie temporal solo para el árbol
+        ancho = 800
+        alto = 600
+        superficie = pygame.Surface((ancho, alto))
+        superficie.fill((255, 255, 255))  # fondo blanco
+        
+        # Parámetros de dibujo compactos
+        font = pygame.font.SysFont(None, 16)
+        dx = 125
+        dy = 60
+        radius = 18
+        start_x = ancho // 2
+        start_y = 50
+        
+        draw_avl(superficie, self.avl_tree.root, start_x, start_y, dx, dy, font, radius)
+        
+         # Guardar imagen en la carpeta
+        filepath = os.path.join(folder, filename)
+        pygame.image.save(superficie, filepath)
+        print(f"Árbol exportado en {filepath}")
 
     # -------------------- Dibujado --------------------
     def draw(self):
