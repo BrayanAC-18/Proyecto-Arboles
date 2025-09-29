@@ -6,6 +6,7 @@ from controller.grafico_avl import draw_avl
 from avl.avl import AVL  
 
 NEGRO = (0, 0, 0)
+ROJO = (255, 0, 0)
 
 class GameScreen(Screen):
     def __init__(self, display, config, game, avl_tree=None):
@@ -29,6 +30,8 @@ class GameScreen(Screen):
             if not hasattr(obstacle, 'id'):
                 obstacle.id = i
             self.avl_tree.insert(obstacle)
+
+        self.exportar_arbol("arbol_inicial.png")
 
         # -------------------- Jugador --------------------
         imagenes = [
@@ -92,10 +95,11 @@ class GameScreen(Screen):
     def limpiar_obstaculos_pasados(self):
         jugador_left = self.jugador.rect.left
         pasados = [obst for obst in self.carretera.obstacles if obst.rect.right < jugador_left]
+
         for obst in pasados:
             if self.avl_tree:
                 self.avl_tree.delete(obst)
-                self.exportar_arbol(f"arbol_{obst.id}.png")
+                self.exportar_arbol(f"arbol_{obst.posX, obst.posY}.png")
             if obst in self.carretera.obstacles:
                 self.carretera.obstacles.remove(obst)
 

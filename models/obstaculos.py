@@ -2,7 +2,7 @@ import pygame
 import os
 
 class Obstacle:
-    def __init__(self, id_, tipo, posX, posY, ancho, alto, imagen="", daño=0):
+    def __init__(self, id_, tipo, posX, posY, ancho, alto, imagen="", daño=0, user_created=False):
         self.id = id_
         self.tipo = tipo
         self.posX = posX
@@ -11,6 +11,7 @@ class Obstacle:
         self.alto = alto
         self.daño = daño
         self.tocado = False
+        self.user_created = user_created
 
         # Si se pasa una imagen válida, cargarla
         if imagen and os.path.exists(imagen):
