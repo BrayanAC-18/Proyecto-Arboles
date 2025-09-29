@@ -140,7 +140,7 @@ class GameScreen(Screen):
             start_y = int(self.config["ventana"]["alto"] * 0.55)
             draw_avl(self.display, self.avl_tree.root, start_x, start_y, dx, dy, font, radius)
 
-        node_count = len(self.avl_tree.inorder()) if self.avl_tree and self.avl_tree.root else 0
+        node_count = (len(self.avl_tree.inorder())+1) if self.avl_tree and self.avl_tree.root else 0
         info_surface = self.fuente.render(f"Nodos en árbol: {node_count}", True, NEGRO)
         self.display.blit(info_surface, (10, self.config["ventana"]["alto"] - 30))
         pygame.display.flip()

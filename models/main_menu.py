@@ -139,7 +139,6 @@ class MainMenuScreen(Screen):
                 alto=alto,
                 imagen=imagen_ruta,
                 daño=daño,
-                user_created=True
             )
 
             # Agregar a lista temporal

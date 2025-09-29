@@ -457,12 +457,32 @@
         {
             "id": 44,
             "tipo": "piedra",
-            "posX": 4000,
+            "posX": 8000,
             "posY": 90,
             "ancho": 30,
             "alto": 30,
             "imagen": "assets/images/obstacle/piedra.png",
             "da\u00f1o": 15
+        },
+        {
+            "id": 45,
+            "tipo": "semaforo",
+            "posX": 800,
+            "posY": 90,
+            "ancho": 40,
+            "alto": 80,
+            "imagen": "assets/images/obstacle/semaforo.png",
+            "da\u00f1o": 1
+        },
+        {
+            "id": 46,
+            "tipo": "arbol",
+            "posX": 9500,
+            "posY": 140,
+            "ancho": 20,
+            "alto": 30,
+            "imagen": "assets/images/obstacle/arbol.png",
+            "da\u00f1o": 1
         }
     ]
 }

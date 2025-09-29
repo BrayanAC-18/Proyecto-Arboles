@@ -2,7 +2,7 @@ import pygame
 import os
 
 class Obstacle:
-    def __init__(self, id_, tipo, posX, posY, ancho, alto, imagen="", daño=0, user_created=False):
+    def __init__(self, id_, tipo, posX, posY, ancho, alto, imagen="", daño=0):
         self.id = id_
         self.tipo = tipo
         self.posX = posX
@@ -11,7 +11,6 @@ class Obstacle:
         self.alto = alto
         self.daño = daño
         self.tocado = False
-        self.user_created = user_created
 
         # Si se pasa una imagen válida, cargarla
         if imagen and os.path.exists(imagen):
@@ -36,7 +35,9 @@ class Obstacle:
             text_rect = text_surf.get_rect(center=(self.posX + offset_x + self.ancho//2, self.posY + self.alto//2))
             surface.blit(text_surf, text_rect)
 
-
+    def __repr__(self):
+        return f"Obstacle(id={self.id}, tipo={self.tipo}, pos=({self.posX},{self.posY}))"
+    
     def __eq__(self, other):
         return isinstance(other, Obstacle) and (self.posX, self.posY) == (other.posX, other.posY)
 
