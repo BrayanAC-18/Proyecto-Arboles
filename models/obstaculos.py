@@ -37,14 +37,11 @@ class Obstacle:
             surface.blit(text_surf, text_rect)
 
 
-    def __repr__(self):
-        return f"Obstacle(id={self.id}, tipo={self.tipo}, pos=({self.posX},{self.posY}))"
-
     def __eq__(self, other):
-        return  isinstance(other, Obstacle) and self.id == other.id
+        return isinstance(other, Obstacle) and (self.posX, self.posY) == (other.posX, other.posY)
 
     def __lt__(self, other):
-        return isinstance(other, Obstacle) and self.id < other.id
+        return isinstance(other, Obstacle) and (self.posX, self.posY) < (other.posX, other.posY)
 
     def __gt__(self, other):
-        return isinstance(other, Obstacle) and self.id > other.id
+        return isinstance(other, Obstacle) and (self.posX, self.posY) > (other.posX, other.posY)
